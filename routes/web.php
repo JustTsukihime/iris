@@ -22,3 +22,4 @@ Route::get('/register', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/is', 'InfoScreenController');
