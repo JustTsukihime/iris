@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/register', function () {
+    return redirect()->home(); // Add registration via invites only
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
