@@ -35,6 +35,7 @@ class InfoScreenSlideController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware('auth');
         $this->validate($request, [
             'info_screen_id' => 'required|exists:info_screens,id',
             'name' => 'required',
@@ -87,8 +88,10 @@ class InfoScreenSlideController extends Controller
      * @param  \App\InfoScreenSlide  $infoScreenSlide
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InfoScreenSlide $infoScreenSlide)
+    public function destroy(InfoScreenSlide $slide)
     {
-        //
+        $this->middleware('auth');
+        $slide->delete();
+        return back();
     }
 }

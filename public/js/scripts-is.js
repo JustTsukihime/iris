@@ -122,7 +122,7 @@ function NewsBoard() {
                 //if (options.Act == "get") {
                     updateTimer = setTimeout(function () {
                         nb.update();
-                    },  600000); // 10 min
+                    },  300000); // 5 min
                 //}
             }
         });

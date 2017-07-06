@@ -50,7 +50,10 @@
                     @foreach($slides as $slide)
                         <div class="col-xs-12">
                             <img src="{{ Storage::url($slide->url) }}" class="col-xs-5">
-                            <span class="col-xs-7">{{ $slide->name }}</span>
+                            <span class="col-xs-6">{{ $slide->name }}</span>
+                            {{ Form::open(['route' => ['slides.destroy', $slide->id], 'method' => 'delete']) }}
+                            {{ Form::submit('Delete', ['class' => 'btn btn-primary']) }}
+                            {{ Form::close() }}
                         </div>
                     @endforeach
                 </div>
