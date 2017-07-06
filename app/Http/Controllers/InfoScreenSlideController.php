@@ -35,7 +35,16 @@ class InfoScreenSlideController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'info_screen_id' => 'required|exists:info_screens,id',
+            'name' => 'required',
+            'content' => 'required|image|max:2000'
+        ]);
+
+        $path = $request->file('content')->storePublicly('slides', 'public');
+
+        InfoScreenSlide::create(array_merge($request->only(['info_screen_id', 'name']), ['url' => $path]));
+        return back();
     }
 
     /**

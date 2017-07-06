@@ -22,4 +22,6 @@ Route::get('/register', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/gis', 'InfoScreenController@getUpdates')->name('is.updates');
 Route::resource('/is', 'InfoScreenController');
+Route::resource('/slides', 'InfoScreenSlideController');

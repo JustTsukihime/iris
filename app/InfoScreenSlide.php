@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InfoScreenSlide extends Model
 {
-    protected $guarded = ['url'];
+    protected $guarded = [];
 
     public function infoScreen() {
         return $this->belongsTo(InfoScreen::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\InfoScreen;
+use App\InfoScreenSlide;
 use Illuminate\Http\Request;
 
 class InfoScreenController extends Controller
@@ -46,7 +47,7 @@ class InfoScreenController extends Controller
      */
     public function show(InfoScreen $infoScreen)
     {
-        //
+        return view('layouts.infoscreen');
     }
 
     /**
@@ -70,6 +71,10 @@ class InfoScreenController extends Controller
     public function update(Request $request, InfoScreen $infoScreen)
     {
         //
+    }
+
+    public function getUpdates() {
+        return ['Pages' => InfoScreenSlide::all()];
     }
 
     /**
