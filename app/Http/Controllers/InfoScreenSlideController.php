@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\InfoScreen;
 use App\InfoScreenSlide;
+use App\InfoScreenSlideShow;
 use Illuminate\Http\Request;
 
 class InfoScreenSlideController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,18 +40,20 @@ class InfoScreenSlideController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Infoscreen $infoscreen)
     {
-        $this->middleware('auth');
         $this->validate($request, [
-            'info_screen_id' => 'required|exists:info_screens,id',
+//            'info_screen_id' => 'required|exists:info_screens,id',
             'name' => 'required',
+            'slide_show' => 'required|exists:info_screen_slide_shows,id',
             'content' => 'required|image|max:2000'
         ]);
 
         $path = $request->file('content')->storePublicly('slides', 'public');
 
-        InfoScreenSlide::create(array_merge($request->only(['info_screen_id', 'name']), ['url' => $path]));
+        $slide = $infoscreen->slides()->create(array_merge($request->only(['name']), ['url' => $path]));
+        InfoScreenSlideShow::findOrFail($request->slide_show)->slides()->attach($slide);
+//        InfoScreenSlide::create(array_merge($request->only(['info_screen_id', 'name']), ['url' => $path]));
         return back();
     }
 
@@ -90,7 +99,6 @@ class InfoScreenSlideController extends Controller
      */
     public function destroy(InfoScreenSlide $slide)
     {
-        $this->middleware('auth');
         $slide->delete();
         return back();
     }

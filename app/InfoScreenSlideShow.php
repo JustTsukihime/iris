@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class InfoScreenSlideShow extends Model
 {
+    protected $guarded = [];
+
     public function slides() {
         return $this->belongsToMany(InfoScreenSlide::class);
     }

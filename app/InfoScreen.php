@@ -15,4 +15,8 @@ class InfoScreen extends Model
     public function slideShows() {
         return $this->hasMany(InfoScreenSlideShow::class);
     }
+
+    public function getRouteKeyName() {
+        return 'url';
+    }
 }

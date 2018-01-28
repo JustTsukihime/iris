@@ -4,10 +4,19 @@ namespace App\Http\Controllers;
 
 use App\InfoScreen;
 use App\InfoScreenSlide;
+use App\InfoScreenSlideShow;
 use Illuminate\Http\Request;
 
 class InfoScreenController extends Controller
 {
+    /**
+     * InfoScreenController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['show', 'getUpdates']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,7 @@ class InfoScreenController extends Controller
      */
     public function index()
     {
-        //
+        return view('layouts.infoscreen.index', ['infoScreens' => InfoScreen::all()]);
     }
 
     /**
@@ -36,29 +45,36 @@ class InfoScreenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'url' => 'required',
+        ]);
+
+        $is = InfoScreen::create(request(['name', 'url']));
+        return redirect()->route('infoscreen.edit', $is->url);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\InfoScreen  $infoScreen
+     * @param  \App\InfoScreen  $infoscreen
      * @return \Illuminate\Http\Response
      */
-    public function show(InfoScreen $infoScreen)
+    public function show(InfoScreen $infoscreen)
     {
-        return view('layouts.infoscreen');
+        return view('layouts.infoscreen', compact('infoscreen'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\InfoScreen  $infoScreen
+     * @param  \App\InfoScreen  $infoscreen
      * @return \Illuminate\Http\Response
      */
-    public function edit(InfoScreen $infoScreen)
+    public function edit(InfoScreen $infoscreen)
     {
-        //
+        $slideshows = $infoscreen->slideShows()->get();
+        return view('layouts.infoscreen.edit', compact(['infoscreen', 'slideshows']));
     }
 
     /**
@@ -68,13 +84,19 @@ class InfoScreenController extends Controller
      * @param  \App\InfoScreen  $infoScreen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InfoScreen $infoScreen)
+    public function update(Request $request, InfoScreen $infoscreen)
     {
         //
     }
 
-    public function getUpdates() {
-        return ['Pages' => InfoScreenSlide::all()];
+    /**
+     * @param InfoScreen $infoscreen
+     * @return array
+     *
+     * TODO: change slides() to active slideshow.
+     */
+    public function slides(InfoScreen $infoscreen) {
+        return ['Pages' => $infoscreen->slides()->get()];
     }
 
     /**
