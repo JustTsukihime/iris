@@ -14,7 +14,7 @@ class InfoScreenController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['show', 'getUpdates']);
+        $this->middleware('auth')->except(['show', 'slides']);
     }
 
     /**
@@ -42,6 +42,9 @@ class InfoScreenController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     *
+     * TODO: Create default slideshow for new infoscreen
+     * TODO: Restrain URL to be unique
      */
     public function store(Request $request)
     {
@@ -86,17 +89,25 @@ class InfoScreenController extends Controller
      */
     public function update(Request $request, InfoScreen $infoscreen)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'active_slide_show' => 'required|exists:info_screen_slide_shows,id',
+        ]);
+
+        $infoscreen->update($request->only(['name', 'active_slide_show']));
+        return back();
     }
 
     /**
      * @param InfoScreen $infoscreen
      * @return array
      *
-     * TODO: change slides() to active slideshow.
      */
     public function slides(InfoScreen $infoscreen) {
-        return ['Pages' => $infoscreen->slides()->get()];
+        $slides = $infoscreen->activeSlideShow()
+            ->get(['id', 'name', 'url']);
+
+        return ['Pages' => $slides];
     }
 
     /**

@@ -5,16 +5,29 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Rediģēt infoekrānu</div>
+                    <div class="panel-heading">Iestatījumi</div>
                     <div class="panel-body">
-                        {{ Form::open(['action' => 'InfoScreenController@store', 'class' => 'form-horizontal']) }}
+                        {{ Form::open(['action' => ['InfoScreenController@update', $infoscreen->url], 'method' => 'put', 'class' => 'form-horizontal']) }}
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            {{ Form::label('name', 'Info ekrāna nosaukums', ['class' => 'col-md-4 control-label']) }}
+                            {{ Form::label('name', 'Infoekrāna nosaukums', ['class' => 'col-md-4 control-label']) }}
 
                             <div class="col-md-6">
                                 {{ Form::text('name', $infoscreen->name, ['class' => 'form-control']) }}
 
                                 @if ($errors->has('name'))
+                                    <span class="help-block">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('active_slide_show') ? ' has-error' : '' }}">
+                            {{ Form::label('active_slide_show', 'Aktīvais slaidšovs', ['class' => 'col-md-4 control-label']) }}
+
+                            <div class="col-md-6">
+                                {{ Form::select('active_slide_show', $slideshows->pluck('name', 'id'), $infoscreen->active_slide_show, ['class' => 'form-control']) }}
+
+                                @if ($errors->has('active_slide_show'))
                                     <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>

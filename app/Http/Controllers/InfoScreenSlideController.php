@@ -43,7 +43,6 @@ class InfoScreenSlideController extends Controller
     public function store(Request $request, Infoscreen $infoscreen)
     {
         $this->validate($request, [
-//            'info_screen_id' => 'required|exists:info_screens,id',
             'name' => 'required',
             'slide_show' => 'required|exists:info_screen_slide_shows,id',
             'content' => 'required|image|max:2000'
@@ -53,7 +52,6 @@ class InfoScreenSlideController extends Controller
 
         $slide = $infoscreen->slides()->create(array_merge($request->only(['name']), ['url' => $path]));
         InfoScreenSlideShow::findOrFail($request->slide_show)->slides()->attach($slide);
-//        InfoScreenSlide::create(array_merge($request->only(['info_screen_id', 'name']), ['url' => $path]));
         return back();
     }
 
