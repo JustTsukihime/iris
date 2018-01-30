@@ -13,11 +13,11 @@ class CreateSlideAssignments extends Migration
      */
     public function up()
     {
-        Schema::create('info_screen_slide_info_screen_slide_show', function (Blueprint $table) {
-            $table->integer('info_screen_slide_id')->unsigned();
-            $table->integer('info_screen_slide_show_id')->unsigned();
+        Schema::create('slide_slide_show', function (Blueprint $table) {
+            $table->integer('slide_id')->unsigned();
+            $table->integer('slide_show_id')->unsigned();
 
-            $table->primary(['info_screen_slide_id', 'info_screen_slide_show_id'], 'slide_id_slide_show_id');
+            $table->primary(['slide_id', 'slide_show_id'], 'slide_id_slide_show_id');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateSlideAssignments extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('info_screen_slide_info_screen_slide_show');
+        Schema::dropIfExists('slide_slide_show');
     }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\InfoScreen;
-use App\InfoScreenSlide;
-use App\InfoScreenSlideShow;
+use App\Screen;
+use App\Slide;
+use App\SlideShow;
 use Illuminate\Http\Request;
 
-class InfoScreenSlideController extends Controller
+class SlideController extends Controller
 {
     public function __construct()
     {
@@ -40,28 +40,28 @@ class InfoScreenSlideController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Infoscreen $infoscreen)
+    public function store(Request $request, Screen $screen)
     {
         $this->validate($request, [
             'name' => 'required',
-            'slide_show' => 'required|exists:info_screen_slide_shows,id',
+            'slide_show' => 'required|exists:slide_shows,id',
             'content' => 'required|image|max:2000'
         ]);
 
         $path = $request->file('content')->storePublicly('slides', 'public');
 
-        $slide = $infoscreen->slides()->create(array_merge($request->only(['name']), ['url' => $path]));
-        InfoScreenSlideShow::findOrFail($request->slide_show)->slides()->attach($slide);
+        $slide = $screen->slides()->create(array_merge($request->only(['name']), ['url' => $path]));
+        SlideShow::findOrFail($request->slide_show)->slides()->attach($slide);
         return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\InfoScreenSlide  $infoScreenSlide
+     * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function show(InfoScreenSlide $infoScreenSlide)
+    public function show(Slide $slide)
     {
         //
     }
@@ -69,10 +69,10 @@ class InfoScreenSlideController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\InfoScreenSlide  $infoScreenSlide
+     * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function edit(InfoScreenSlide $infoScreenSlide)
+    public function edit(Slide $slide)
     {
         //
     }
@@ -81,10 +81,10 @@ class InfoScreenSlideController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\InfoScreenSlide  $infoScreenSlide
+     * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InfoScreenSlide $infoScreenSlide)
+    public function update(Request $request, Slide $slide)
     {
         //
     }
@@ -92,10 +92,12 @@ class InfoScreenSlideController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\InfoScreenSlide  $infoScreenSlide
+     * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
+     *
+     * TODO: Dissociate slide instead of deleting it.
      */
-    public function destroy(InfoScreenSlide $slide)
+    public function destroy(Screen $screen, Slide $slide)
     {
         $slide->delete();
         return back();

@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/is.styles.css') }}">
     <script>
         var config = {
-            "url": "{{ route('infoscreen.slides', ['id' => $infoscreen->url]) }}"
+            "url": "{{ route('screen.slides', ['id' => $screen->url]) }}"
         }
     </script>
     <script type="text/javascript" src="{{ asset('js/jquery-2.1.3.min.js') }}"></script>

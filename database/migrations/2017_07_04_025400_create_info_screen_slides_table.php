@@ -13,14 +13,14 @@ class CreateInfoScreenSlidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('info_screen_slides', function (Blueprint $table) {
+        Schema::create('slides', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('info_screen_id')->unsigned();
+            $table->integer('screen_id')->unsigned();
             $table->string('name');
             $table->string('url');
             $table->timestamps();
 
-            $table->foreign('info_screen_id')->references('id')->on('info_screens');
+            $table->foreign('screen_id')->references('id')->on('screens');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateInfoScreenSlidesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('info_screen_slides');
+        Schema::dropIfExists('slides');
     }
 }

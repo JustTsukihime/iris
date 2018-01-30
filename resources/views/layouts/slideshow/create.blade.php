@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Jauna slaidšova pievienošana</div>
                     <div class="panel-body">
-                        {{ Form::open(['action' => ['InfoScreenSlideShowController@store', $infoscreen->url], 'class' => 'form-horizontal']) }}
+                        {{ Form::open(['action' => ['SlideShowController@store', $screen->url], 'class' => 'form-horizontal']) }}
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             {{ Form::label('name', 'Slaidšova nosaukums', ['class' => 'col-md-4 control-label']) }}
 

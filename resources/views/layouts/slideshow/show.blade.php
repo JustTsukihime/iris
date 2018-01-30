@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Jauna slaida pievienošana</div>
                     <div class="panel-body">
-                        {{ Form::open(['action' => ['InfoScreenSlideController@store', $infoscreen, $slideshow], 'class' => 'form-horizontal', 'files' => true]) }}
+                        {{ Form::open(['action' => ['SlideController@store', $screen, $slideshow], 'class' => 'form-horizontal', 'files' => true]) }}
                         {{ Form::hidden('slide_show', $slideshow->id) }}
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             {{ Form::label('name', 'Slaida nosaukums', ['class' => 'col-md-4 control-label']) }}
@@ -50,7 +50,7 @@
                             <div class="col-xs-12">
                                 <img src="{{ Storage::url($slide->url) }}" class="col-xs-5">
                                 <span class="col-xs-6">{{ $slide->name }}</span>
-                                {{ Form::open(['route' => ['slide.destroy', $infoscreen->id, $slide->id], 'method' => 'delete']) }}
+                                {{ Form::open(['route' => ['slide.destroy', $screen, $slide], 'method' => 'delete']) }}
                                 {{ Form::submit('Delete', ['class' => 'btn btn-primary']) }}
                                 {{ Form::close() }}
                             </div>

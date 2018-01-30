@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InfoScreenSlideShow extends Model
+class SlideShow extends Model
 {
     protected $guarded = [];
 
     public function slides() {
-        return $this->belongsToMany(InfoScreenSlide::class);
+        return $this->belongsToMany(Slide::class);
     }
 
     public function infoScreen() {
-        return $this->belongsTo(InfoScreen::class);
+        return $this->belongsTo(Screen::class);
     }
 }

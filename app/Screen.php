@@ -4,16 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InfoScreen extends Model
+class Screen extends Model
 {
     protected $guarded = [];
 
     public function slides() {
-        return $this->hasMany(InfoScreenSlide::class);
+        return $this->hasMany(Slide::class);
     }
 
     public function slideShows() {
-        return $this->hasMany(InfoScreenSlideShow::class);
+        return $this->hasMany(SlideShow::class);
     }
 
     public function activeSlideShow() {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\InfoScreenSlide;
+use App\Slide;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', ['slides' => InfoScreenSlide::where('info_screen_id', 1)->get()]);
+        return view('home', ['slides' => Slide::where('info_screen_id', 1)->get()]);
     }
 }

@@ -13,7 +13,7 @@ class CreateInfoScreensTable extends Migration
      */
     public function up()
     {
-        Schema::create('info_screens', function (Blueprint $table) {
+        Schema::create('screens', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('url');
@@ -28,6 +28,6 @@ class CreateInfoScreensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('info_screens');
+        Schema::dropIfExists('screens');
     }
 }

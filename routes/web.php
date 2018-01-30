@@ -21,13 +21,12 @@ Route::get('/register', function () {
     return redirect()->home(); // Add registration via invites only
 });
 
-Route::get('/home', 'InfoScreenController@index')->name('home');
-Route::get('/gis', 'InfoScreenController@getUpdates')->name('infoscreen.updates');
-Route::resource('infoscreen', 'InfoScreenController');
-Route::prefix('infoscreen/{infoscreen}')->group(function () {
-    Route::get('slides', 'InfoScreenController@slides')->name('infoscreen.slides');
-    Route::resource('slide', 'InfoScreenSlideController');
-    Route::resource('slideshow', 'InfoScreenSlideShowController');
+Route::get('home', 'ScreenController@index')->name('home');
+Route::resource('screen', 'ScreenController');
+Route::prefix('screen/{screen}')->group(function () {
+    Route::get('slides', 'ScreenController@slides')->name('screen.slides');
+    Route::resource('slide', 'SlideController');
+    Route::resource('slideshow', 'SlideShowController');
 });
 
 

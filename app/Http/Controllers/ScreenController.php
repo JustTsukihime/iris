@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\InfoScreen;
-use App\InfoScreenSlide;
-use App\InfoScreenSlideShow;
+use App\Screen;
+use App\Slide;
+use App\SlideShow;
 use Illuminate\Http\Request;
 
-class InfoScreenController extends Controller
+class ScreenController extends Controller
 {
     /**
-     * InfoScreenController constructor.
+     * ScreenController constructor.
      */
     public function __construct()
     {
@@ -24,7 +24,7 @@ class InfoScreenController extends Controller
      */
     public function index()
     {
-        return view('layouts.infoscreen.index', ['infoScreens' => InfoScreen::all()]);
+        return view('layouts.screen.index', ['screens' => Screen::all()]);
     }
 
     /**
@@ -43,7 +43,7 @@ class InfoScreenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      *
-     * TODO: Create default slideshow for new infoscreen
+     * TODO: Create default slideshow for new screen
      * TODO: Restrain URL to be unique
      */
     public function store(Request $request)
@@ -53,58 +53,58 @@ class InfoScreenController extends Controller
             'url' => 'required',
         ]);
 
-        $is = InfoScreen::create(request(['name', 'url']));
-        return redirect()->route('infoscreen.edit', $is->url);
+        $is = Screen::create(request(['name', 'url']));
+        return redirect()->route('screen.edit', $is->url);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\InfoScreen  $infoscreen
+     * @param  \App\Screen  $screen
      * @return \Illuminate\Http\Response
      */
-    public function show(InfoScreen $infoscreen)
+    public function show(Screen $screen)
     {
-        return view('layouts.infoscreen', compact('infoscreen'));
+        return view('layouts.screen.show', compact('screen'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\InfoScreen  $infoscreen
+     * @param  \App\Screen  $screen
      * @return \Illuminate\Http\Response
      */
-    public function edit(InfoScreen $infoscreen)
+    public function edit(Screen $screen)
     {
-        $slideshows = $infoscreen->slideShows()->get();
-        return view('layouts.infoscreen.edit', compact(['infoscreen', 'slideshows']));
+        $slideshows = $screen->slideShows()->get();
+        return view('layouts.screen.edit', compact(['screen', 'slideshows']));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\InfoScreen  $infoScreen
+     * @param  \App\Screen  $screen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InfoScreen $infoscreen)
+    public function update(Request $request, Screen $screen)
     {
         $this->validate($request, [
             'name' => 'required',
-            'active_slide_show' => 'required|exists:info_screen_slide_shows,id',
+            'active_slide_show' => 'required|exists:slide_shows,id',
         ]);
 
-        $infoscreen->update($request->only(['name', 'active_slide_show']));
+        $screen->update($request->only(['name', 'active_slide_show']));
         return back();
     }
 
     /**
-     * @param InfoScreen $infoscreen
+     * @param Screen $screen
      * @return array
      *
      */
-    public function slides(InfoScreen $infoscreen) {
-        $slides = $infoscreen->activeSlideShow()
+    public function slides(Screen $screen) {
+        $slides = $screen->activeSlideShow()
             ->get(['id', 'name', 'url']);
 
         return ['Pages' => $slides];
@@ -113,10 +113,10 @@ class InfoScreenController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\InfoScreen  $infoScreen
+     * @param  \App\Screen  $screen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InfoScreen $infoScreen)
+    public function destroy(Screen $screen)
     {
         //
     }

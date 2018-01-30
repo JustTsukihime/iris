@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Pievienot infoekrānu</div>
                     <div class="panel-body">
-                        {{ Form::open(['action' => 'InfoScreenController@store', 'class' => 'form-horizontal']) }}
+                        {{ Form::open(['action' => 'ScreenController@store', 'class' => 'form-horizontal']) }}
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             {{ Form::label('name', 'Info ekrāna nosaukums', ['class' => 'col-md-4 control-label']) }}
 
@@ -26,7 +26,7 @@
 
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon">{{ route('infoscreen.index') }}/</span>
+                                    <span class="input-group-addon">{{ route('screen.index') }}/</span>
                                     {{ Form::text('url', null, ['class' => 'form-control']) }}
                                 </div>
 
@@ -48,10 +48,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Info ekrāni</div>
                     <div class="panel-body">
-                        @foreach($infoScreens as $is)
+                        @foreach($screens as $screen)
                             <div class="col-xs-12">
-                                <span class="col-xs-6">{{ $is->name }}</span>
-                                <a class="btn btn-primary" href="{{ route('infoscreen.edit', $is->url) }}">Rediģēt</a>
+                                <span class="col-xs-6">{{ $screen->name }}</span>
+                                <a class="btn btn-primary" href="{{ route('screen.edit', $screen->url) }}">Rediģēt</a>
                             </div>
                         @endforeach
                     </div>
