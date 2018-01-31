@@ -16,7 +16,7 @@ class CreateInfoScreensTable extends Migration
         Schema::create('screens', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('url');
+            $table->string('url')->unique();
             $table->timestamps();
         });
     }

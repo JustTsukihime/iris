@@ -32,7 +32,7 @@
 
                                 @if ($errors->has('url'))
                                     <span class="help-block">
-                                    <strong>{{ $errors->first('address') }}</strong>
+                                    <strong>{{ $errors->first('url') }}</strong>
                                 </span>
                                 @endif
                             </div>

@@ -50,7 +50,7 @@ class ScreenController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'url' => 'required',
+            'url' => 'required|unique:screens,url',
         ]);
 
         $is = Screen::create(request(['name', 'url']));
