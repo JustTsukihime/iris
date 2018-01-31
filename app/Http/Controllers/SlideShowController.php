@@ -54,6 +54,9 @@ class SlideShowController extends Controller
         ]);
 
         $slideshow = $screen->slideShows()->create($request->only(['name']));
+        if (!$screen->activeSlideShow()->exists()) {
+            $screen->activeSlideShow()->associate($slideshow)->save();
+        }
         return redirect()->route('slideshow.show', ['slideshow' => $slideshow, 'url' => $screen]);
     }
 
@@ -97,9 +100,15 @@ class SlideShowController extends Controller
      *
      * @param  \App\SlideShow  $slideshow
      * @return \Illuminate\Http\Response
+     *
+     * TODO: Prevent deleting active slideshow?
      */
-    public function destroy(SlideShow $slideshow)
+    public function destroy(Screen $screen, SlideShow $slideshow)
     {
-        //
+        if ($screen->activeSlideShow == $slideshow) {
+            $screen->activeSlideShow()->dissociate()->save();
+        }
+        $slideshow->delete();
+        return redirect()->route('screen.edit', ['screen' => $screen]);
     }
 }

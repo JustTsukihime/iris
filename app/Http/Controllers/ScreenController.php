@@ -43,8 +43,6 @@ class ScreenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      *
-     * TODO: Create default slideshow for new screen
-     * TODO: Restrain URL to be unique
      */
     public function store(Request $request)
     {
@@ -104,9 +102,8 @@ class ScreenController extends Controller
      *
      */
     public function slides(Screen $screen) {
-        $slides = $screen->activeSlideShow()
-            ->get(['id', 'name', 'url']);
 
+        $slides = $screen->activeSlideShow ? $screen->activeSlideShow->slides()->get(['id', 'name', 'url']) : [];
         return ['Pages' => $slides];
     }
 

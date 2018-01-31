@@ -17,7 +17,7 @@ class Screen extends Model
     }
 
     public function activeSlideShow() {
-        return $this->slideShows()->where('id', $this->active_slide_show)->first()->slides();
+        return $this->belongsTo(SlideShow::class, 'active_slide_show');
     }
 
     public function getRouteKeyName() {
