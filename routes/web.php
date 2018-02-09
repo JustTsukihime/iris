@@ -29,4 +29,4 @@ Route::prefix('screen/{screen}')->group(function () {
     Route::resource('slideshow', 'SlideShowController');
 });
 
-
+Route::post('/mmsct', 'MattermostSlashCommandTest@test');
