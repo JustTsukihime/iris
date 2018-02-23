@@ -20,7 +20,7 @@ class MattermostSlashCommandTest extends Controller
 //            'user_name' => 'required',
 //        ]);
 
-        $res_text = 'You tried using a slash command!';
+        $res_text = '{$request->user_name} ({$request->user_id}) of {$request->team_domain} ({$request->team_id}) tried using a slash command [{$request->command}] in {$request->channel_name} ({$request->channel_id}) and said {$request->text}!';
 
         return [
             'response_type' => 'in_channel',
